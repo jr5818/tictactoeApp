@@ -1,7 +1,8 @@
 import java.util.Random;
-import java.util.Scanner; // Required for reading user input
+import java.util.Scanner; 
 
 public class Main {
+
 
     public static int getUserMove(Scanner scanner) {
         System.out.print("Enter a slot number (1-9): ");
@@ -9,8 +10,19 @@ public class Main {
         return slot;
     }
 
+    
+    public static int[] getBoardPosition(int slot) {
+        // Convert 1-9 to 0-8 for zero-based math
+        int index = slot - 1; 
+        
+        int row = index / 3;
+        int col = index % 3;
+        
+        // Return as an array where [0] is row and [1] is column
+        return new int[]{row, col}; 
+    }
+
     public static void main(String[] args) {
-        // Initialize the Scanner once for the whole program
         Scanner scanner = new Scanner(System.in);
 
         // ==========================================
@@ -33,7 +45,9 @@ public class Main {
         }
         System.out.println("-------------------");
 
-
+        // ==========================================
+        // UC2: Toss to Decide First Player & Symbol
+        // ==========================================
         System.out.println("\n--- Flipping the coin ---");
         
         Random random = new Random();
@@ -41,7 +55,7 @@ public class Main {
 
         char playerSymbol;
         char computerSymbol;
-        int currentPlayer; // 1 = Human Player, 2 = Computer
+        int currentPlayer; 
 
         if (toss == 0) {
             System.out.println("You won the toss! You get to go first.");
@@ -59,17 +73,24 @@ public class Main {
         System.out.println("Computer's Symbol: " + computerSymbol);
         System.out.println("-------------------------\n");
 
-       
 
+        // UC3 & UC4 Demonstration Flow
 
         if (currentPlayer == 1) {
             System.out.println("It is your turn.");
-            int selectedSlot = getUserMove(scanner);
-            System.out.println("--> Acknowledged: You selected slot " + selectedSlot);
-        } else {
-            System.out.println("It is the computer's turn. (We will build this later!)");
-        }
+            
 
+            int selectedSlot = getUserMove(scanner);
+            
+            // UC4: Convert that slot into row/col indices
+            int[] position = getBoardPosition(selectedSlot);
+            int row = position[0];
+            int col = position[1];
+            
+            System.out.println("--> Math Check: Slot " + selectedSlot + " maps to array index board[" + row + "][" + col + "]");
+        } else {
+            System.out.println("It is the computer's turn.");
+        }
 
         scanner.close();
     }
