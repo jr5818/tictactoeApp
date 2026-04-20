@@ -1,8 +1,18 @@
 import java.util.Random;
+import java.util.Scanner; // Required for reading user input
 
 public class Main {
+
+    public static int getUserMove(Scanner scanner) {
+        System.out.print("Enter a slot number (1-9): ");
+        int slot = scanner.nextInt();
+        return slot;
+    }
+
     public static void main(String[] args) {
-        
+        // Initialize the Scanner once for the whole program
+        Scanner scanner = new Scanner(System.in);
+
         // ==========================================
         // UC1: Create and Display Empty Board
         // ==========================================
@@ -23,19 +33,15 @@ public class Main {
         }
         System.out.println("-------------------");
 
-        // ==========================================
-        // UC2: Toss to Decide First Player & Symbol
-        // ==========================================
+
         System.out.println("\n--- Flipping the coin ---");
         
         Random random = new Random();
-        // random.nextInt(2) generates either a 0 or a 1
         int toss = random.nextInt(2); 
 
-        // Game State Variables
         char playerSymbol;
         char computerSymbol;
-        int currentPlayer; // Let 1 = Human Player, 2 = Computer
+        int currentPlayer; // 1 = Human Player, 2 = Computer
 
         if (toss == 0) {
             System.out.println("You won the toss! You get to go first.");
@@ -51,6 +57,20 @@ public class Main {
 
         System.out.println("Your Symbol: " + playerSymbol);
         System.out.println("Computer's Symbol: " + computerSymbol);
-        System.out.println("-------------------------");
+        System.out.println("-------------------------\n");
+
+       
+
+
+        if (currentPlayer == 1) {
+            System.out.println("It is your turn.");
+            int selectedSlot = getUserMove(scanner);
+            System.out.println("--> Acknowledged: You selected slot " + selectedSlot);
+        } else {
+            System.out.println("It is the computer's turn. (We will build this later!)");
+        }
+
+
+        scanner.close();
     }
 }
